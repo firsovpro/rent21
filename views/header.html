@@ -17,3 +17,21 @@
 	<script src="/js/dhtmlx/codebase/dhtmlx.js"></script>
 </head>
 <body>
+    <div style="width:1010px" class="wrapper" >
+        <div class="content" id="content">
+        	<div style="display:flex;background: -webkit-linear-gradient(#f4f4f4,#f4f4f4);">
+        		<table style="width:100%">
+        			<tr>
+        				<td style="width:99%"></td>
+        				<td style="white-space:nowrap;">
+				        	<% if (!user) { %>
+								<a href="/auth/yandex">Login with Yandex</a>
+							<% } else { %>
+								<h2>Hello, <%= user.name.givenName %><br> <%= user._json.default_email %><br> <%= user.rolle %></h2>
+								<img src='//avatars.mds.yandex.net/get-yapic/<%= user._json.default_avatar_id %>/islands-middle' /><br>
+								<a href="/logout">Выход</a>
+							<% } %>
+        				</td>
+        			</tr>
+        		</table>
+        	</div>

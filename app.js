@@ -14,7 +14,7 @@ var YANDEX_CLIENT_SECRET = "2a4b0efb70af405dacba5d3124f960ce";
 
 var sql = require('mssql');
 var fs = require('fs');
-
+var ArrayAdmin = ['firsovpro@yandex.ru'];
 passport.serializeUser(function(user, done) {
   done(null, user);
 });
@@ -42,6 +42,22 @@ passport.use(new YandexStrategy({
 ));
 
 var app = express();
+
+  app.set('views', __dirname + '/views');
+  app.set('view engine', 'ejs');
+  app.use(express.logger());
+  app.use(express.cookieParser());
+  app.use(express.bodyParser());
+  app.use(express.methodOverride());
+  app.use(express.session({ secret: 'keyboard cat' }));
+  // Initialize Passport!  Also use passport.session() middleware, to support
+  // persistent login sessions (recommended).
+  app.use(passport.initialize());
+  app.use(passport.session());
+  app.use(app.router);
+  app.use(express.static(__dirname + '/public'));
+
+/*
 //    app.set('port', process.env.PORT || 3000);
     app.set('views', __dirname + '/views');
     app.set('view engine', 'ejs');
@@ -55,7 +71,7 @@ var app = express();
 //    app.use(express.logger('dev'));
 //    app.use(app.router);
   app.use(passport.initialize());
-  app.use(passport.session());
+  //app.use(passport.session());
 
     app.set('view options', { layout: false });
     app.use(express.favicon());
@@ -66,7 +82,7 @@ var app = express();
     app.use(everyauth.middleware(app));
     app.use(require('less-middleware')({ src: __dirname + '/public' }));
     app.use(express.static(path.join(__dirname, 'public')));
-
+*/
 //https://habrahabr.ru/post/312812/
 app.get('/', function(req, res){
     console.log(req.user);
@@ -108,8 +124,13 @@ app.get('/auth/yandex',
   });
 
 app.get('/auth/yandex/callback',
-  passport.authenticate('yandex', { failureRedirect: '/login' }),
+  passport.authenticate('yandex', { failureRedirect: '/' }),
   function(req, res) {
+      if(ArrayAdmin.indexOf(req.user._json.default_email)!=-1){
+          req.user.rolle="admin";
+      }else{
+          req.user.rolle="user";
+      }
     res.redirect('/');
   });
 
@@ -121,7 +142,7 @@ app.get('/logout', function(req, res){
 
 function ensureAuthenticated(req, res, next) {
   if (req.isAuthenticated()) { return next(); }
-  res.redirect('/login')
+  res.redirect('/')
 }
 
 var server = https.createServer({
