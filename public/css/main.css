@@ -1,0 +1,91 @@
+    * {
+        margin: 0;
+        padding: 0;
+        font-family: Calibri, "Calibri Light";
+        font-size:14px;
+    }
+    html,
+    body {
+         height: 100%;
+        font: 14px Calibri, "Calibri Light";
+        /*background:url('/img/bg1.svg');*/
+        background-size:cover;
+    }
+    .wrapper {
+		display: flex;
+		flex-direction: column;
+		width: 1010px;
+		height: 100%;
+		margin: 0 auto;
+    }
+    .content {
+        background:#ffffff;
+        flex: 1 0 auto;
+    }
+    .footer {
+        flex: 0 0 auto;
+        height: 20px;
+        background: linear-gradient(#f4f4f4,#f4f4f4);
+        background: -webkit-linear-gradient(#f4f4f4,#f4f4f4);
+        border: 1px solid #e7e7e7;
+	}
+
+     ::-webkit-scrollbar{
+        width:6px;
+    }
+
+     ::-webkit-scrollbar-thumb{
+        border-width:1px 1px 1px 2px;
+        border-color: #777;
+        background-color: #aaa;
+    }
+
+     ::-webkit-scrollbar-thumb:hover{
+        border-width: 1px 1px 1px 2px;
+        border-color: #555;
+        background-color: #777;
+    }
+     ::-webkit-scrollbar-track{
+        border-width:0;
+    }
+     ::-webkit-scrollbar-track:hover{
+        border-left: solid 1px #aaa;
+        background-color: #eee;
+    }
+
+
+
+    .MainContent{
+        overflow:auto;
+    }
+
+    .globalTable{
+        border-top:1px solid #c5c5c5;
+        border-left:1px solid #c5c5c5;
+        width:100%;
+        font-size:14px;
+    }
+    .globalTable th{
+        background:#e7e7e7;
+        padding:8px 8px 8px 8px;
+        border-right:1px solid #c5c5c5;
+        border-bottom:1px solid #c5c5c5;
+    }
+    .globalTable td{
+        padding:8px 8px 8px 8px;
+        border-right:1px solid #c5c5c5;
+        border-bottom:1px solid #c5c5c5;
+    }
+
+	.vertText{
+	/*	-webkit-writing-mode: vertical-rl; */
+		white-space: nowrap;
+		word-wrap: normal;
+
+
+		writing-mode:tb-rl;
+		-webkit-transform: rotate(180deg);
+		transform: rotate(180deg);
+	}
+
+
