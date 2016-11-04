@@ -45,7 +45,6 @@ var app = express();
 
   app.set('views', __dirname + '/views');
   app.set('view engine', 'ejs');
-  app.use(express.logger());
   app.use(express.cookieParser());
   app.use(express.bodyParser());
   app.use(express.methodOverride());
@@ -57,35 +56,7 @@ var app = express();
   app.use(app.router);
   app.use(express.static(__dirname + '/public'));
 
-/*
-//    app.set('port', process.env.PORT || 3000);
-    app.set('views', __dirname + '/views');
-    app.set('view engine', 'ejs');
-
-
-  //app.use(express.logger());
-  app.use(express.cookieParser());
-  app.use(express.methodOverride());
-  app.use(express.session({ secret: 'keyboard cat' }));
-//    app.set('view engine', 'jade');
-//    app.use(express.logger('dev'));
-//    app.use(app.router);
-  app.use(passport.initialize());
-  //app.use(passport.session());
-
-    app.set('view options', { layout: false });
-    app.use(express.favicon());
-    app.use(express.bodyParser());
-    app.use(express.methodOverride());
-    app.use(express.cookieParser('azure zomg'));
-    app.use(express.session());
-    app.use(everyauth.middleware(app));
-    app.use(require('less-middleware')({ src: __dirname + '/public' }));
-    app.use(express.static(path.join(__dirname, 'public')));
-*/
-//https://habrahabr.ru/post/312812/
 app.get('/', function(req, res){
-    console.log(req.user);
   res.render('index', { user: req.user ,title:'Проверка'});
 });
 
@@ -150,9 +121,10 @@ var server = https.createServer({
       cert: fs.readFileSync('../../../key/vfirsov.ru.crt')
     }, app).listen(455);
 
+
 //var server = http.createServer(app).listen(455);
 
-
+/*
 var io = require('socket.io').listen(server);
 
 
@@ -160,3 +132,4 @@ io.configure(function () {
     io.set("transports", ["xhr-polling"]);
     io.set("polling duration", 100);
 });
+*/
