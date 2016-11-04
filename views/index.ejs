@@ -1,4 +1,11 @@
 <% include header.html %>
-
-
+         <ul>
+             <% for(i=0;i<test1.length;i++) { %>
+             <li>
+                 <%= test1[i].ID %>
+                 <%= test1[i].TIP %>
+                 <%= test1[i].TITLE %>
+             </li>
+             <% }; %>
+         </ul>
 <% include footer.html %>

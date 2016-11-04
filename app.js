@@ -12,8 +12,17 @@ var express = require('express')
 var YANDEX_CLIENT_ID = "a22a06f2b90e4f71875e95d64b233bfa"
 var YANDEX_CLIENT_SECRET = "2a4b0efb70af405dacba5d3124f960ce";
 
-var sql = require('mssql');
+var conectSql = require('../../../setings.json');
+var mysql = require('mysql');
+var connection = mysql.createConnection({
+  host     : 'localhost',
+  user     : conectSql.sqlconnect.user,
+  password : conectSql.sqlconnect.password,
+  database : conectSql.sqlconnect.db
+});
+
 var fs = require('fs');
+
 var ArrayAdmin = ['firsovpro@yandex.ru'];
 passport.serializeUser(function(user, done) {
   done(null, user);
@@ -55,9 +64,22 @@ var app = express();
   app.use(passport.session());
   app.use(app.router);
   app.use(express.static(__dirname + '/public'));
+  connection.connect();
 
 app.get('/', function(req, res){
-  res.render('index', { user: req.user ,title:'Проверка'});
+//  var test = require('./modules/powerlevel')(connection);
+//  console.log(conectSql);
+  var outData = {};
+  connection.query('SELECT * FROM `im_object` limit 0,40', function(err, rows, fields) {
+    if (err) throw err;
+    //console.log(rows);
+    outData.bodyTable = rows;
+      connection.query('SELECT * FROM `im_object` limit 100,40', function(err, rows, fields) {
+        if (err) throw err;
+        outData.spec = rows;
+        res.render('index', { user: req.user ,test1:rows,Tables:outData,title:'Проверка'});
+      });
+  });
 });
 
 app.get('/account', ensureAuthenticated, function(req, res){
